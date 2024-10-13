@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(protobuf-example)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(include)
 set(CMAKE_CXX_STANDARD 17) 
@@ -17,4 +18,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 protobuf_generate_cpp(PROTO_SRC PROTO_HEADER src/proto/Game.proto)
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 add_executable(main src/Main.cpp)
-target_link_libraries(main proto ${PROTOBUF_LIBRARY})
+target_link_libraries(main proto "-Wl,--copy-dt-needed-entries" ${PROTOBUF_LIBRARY})
